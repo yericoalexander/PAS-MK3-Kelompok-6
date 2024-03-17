@@ -4,9 +4,12 @@ namespace Laravel\Prompts\Concerns;
 
 use InvalidArgumentException;
 use Laravel\Prompts\ConfirmPrompt;
+use Laravel\Prompts\MultiSearchPrompt;
 use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\Note;
 use Laravel\Prompts\PasswordPrompt;
+use Laravel\Prompts\PausePrompt;
+use Laravel\Prompts\Progress;
 use Laravel\Prompts\SearchPrompt;
 use Laravel\Prompts\SelectPrompt;
 use Laravel\Prompts\Spinner;
@@ -14,9 +17,12 @@ use Laravel\Prompts\SuggestPrompt;
 use Laravel\Prompts\Table;
 use Laravel\Prompts\TextPrompt;
 use Laravel\Prompts\Themes\Default\ConfirmPromptRenderer;
+use Laravel\Prompts\Themes\Default\MultiSearchPromptRenderer;
 use Laravel\Prompts\Themes\Default\MultiSelectPromptRenderer;
 use Laravel\Prompts\Themes\Default\NoteRenderer;
 use Laravel\Prompts\Themes\Default\PasswordPromptRenderer;
+use Laravel\Prompts\Themes\Default\PausePromptRenderer;
+use Laravel\Prompts\Themes\Default\ProgressRenderer;
 use Laravel\Prompts\Themes\Default\SearchPromptRenderer;
 use Laravel\Prompts\Themes\Default\SelectPromptRenderer;
 use Laravel\Prompts\Themes\Default\SpinnerRenderer;
@@ -43,11 +49,14 @@ trait Themes
             SelectPrompt::class => SelectPromptRenderer::class,
             MultiSelectPrompt::class => MultiSelectPromptRenderer::class,
             ConfirmPrompt::class => ConfirmPromptRenderer::class,
+            PausePrompt::class => PausePromptRenderer::class,
             SearchPrompt::class => SearchPromptRenderer::class,
+            MultiSearchPrompt::class => MultiSearchPromptRenderer::class,
             SuggestPrompt::class => SuggestPromptRenderer::class,
             Spinner::class => SpinnerRenderer::class,
             Note::class => NoteRenderer::class,
             Table::class => TableRenderer::class,
+            Progress::class => ProgressRenderer::class,
         ],
     ];
 
@@ -56,7 +65,7 @@ trait Themes
      *
      * @throws \InvalidArgumentException
      */
-    public static function theme(string $name = null): string
+    public static function theme(?string $name = null): string
     {
         if ($name === null) {
             return static::$theme;
